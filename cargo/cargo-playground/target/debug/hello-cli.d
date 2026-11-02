@@ -1,0 +1,1 @@
+/home/amaan/my_stuff/Projects/fafo-rust/cargo/cargo-playground/target/debug/hello-cli: /home/amaan/my_stuff/Projects/fafo-rust/cargo/cargo-playground/src/bin/hello-cli.rs /home/amaan/my_stuff/Projects/fafo-rust/cargo/cargo-playground/src/lib.rs
