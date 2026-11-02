@@ -2,6 +2,8 @@
 name = "hellow_world_binary"
 version = "0.1.0"
 edition = "2024"
+description = "A small crate for learning Cargo publish"
+license = "MIT"
 
 [dependencies]
 time = "0.1.12"
