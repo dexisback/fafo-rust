@@ -256,14 +256,236 @@
 
 
 //mutable borrwo
-fn main(){
-    let mut name = String::from("Shahrukh");
-    change_name(&mut name);
+// fn main(){
+//     let mut name = String::from("Shahrukh");
+//     change_name(&mut name);
 
-    println!("name is {}", name);
+//     println!("name is {}", name);
+// }
+
+
+// fn change_name(inputString: &mut String) {
+//     inputString.push_str(" Khan");
+// }
+
+
+
+
+// struct User {
+//     isActive: bool,
+//     name: String,
+//     email: String,
+//     age: i32,
+//     sign_in_count: u64,
+// }
+// #[derive(Debug)]
+// fn main() {
+//     let user1 = User {
+//         isActive: true,
+//         name: String::from("Amaan"),
+//         email: String::from("amaan@gmail.com"),
+//         age: 20,
+//         sign_in_count: 1,
+//     };
+//     println!("user 1 is {:?}", user1);
+// }
+
+// #[derive(Debug)]
+// struct User {
+//     is_active: bool,
+//     name: String,
+//     email: String,
+//     age: i32,
+//     sign_in_count: u64,
+// }
+
+// fn main() {
+//     let user1 = User {
+//         is_active: true,
+//         name: String::from("Amaan"),
+//         email: String::from("amaan@gmail.com"),
+//         age: 20,
+//         sign_in_count: 1,
+//     };
+//     println!("user 1 is {:?}", user1);
+//     println!("user 1 is {:#?}", user1);
+// }
+
+
+
+//only stack types in struct:
+// struct User {
+//     active: bool, 
+//     sign_in_count: u64,
+// }
+
+// fn main(){
+//     let mut user1 = User {
+//         active: true, 
+//         sign_in_count : 1,
+//     };
+
+//     print_name(user1);
+//     println!("User 1 username: {}", user1.active)
+// }
+
+
+// struct User{
+//     active: bool , 
+//     sign_in_count : u64,
+// }
+
+// fn main(){
+//     let mut user1 = User {
+//         active: true, 
+//         sign_in_count : 1,
+//     };
+    
+//     print_name(user1);
+//     println!("user 1 is {:?}", user1); //error -- can not use borrowed values
+// }
+
+
+// fn print_name(user1: User){
+//     println!("user 1 username : {}", user1.active)
+// }
+
+
+
+// #[derive(Copy, Clone)]
+// struct User {
+//     active: bool, 
+//     sign_in_count : u64,
+// }
+
+
+// fn main(){
+//     let mut user1 = User {
+//         active: true, 
+//         sign_in_count : 1,
+//     };
+
+//     print_name(user1);
+//     println!("User 1 username: {}", user1.active)  //error goes away because user 1 is copied
+
+// }
+
+
+// fn print_name(user1: User){
+//     println!("User 1 username : {}", user1.active)
+// }
+
+
+
+//---------------------------------------//
+
+
+// struct User {
+//     active : bool,
+//     username: String, 
+//     email: String , 
+//     age : i128,
+// }
+
+// fn main(){
+//     let user1 = User {
+//         active: true,
+//         username: String::from("Amaan"),
+//         email: String::from("amaan@gmail.com"),
+//         age: 20,
+//     };
+//     println!("user 1 is {:?}", user1);
+// }
+
+
+
+// struct User {
+//     active: bool,
+//     username: String,
+//     email: String,
+//     sign_in_count: u64,
+// }
+
+// fn main() {
+//     let user1 = User {
+//         active: true,
+//         username: String::from("someusername123"),
+//         email: String::from("someone@example.com"),
+//         sign_in_count: 1,
+//     };
+//     println!("User 1 username: {:?}", user1.username);
+// }
+
+
+
+// #[derive(Debug)]
+// struct User {
+//     active: bool,
+//     username: String,
+//     email: String,
+//     sign_in_count: u64,
+// }
+
+// fn main() {
+//     let user1 = User {
+//         active: true,
+//         username: String::from("someusername123"),
+//             email: String::from("someone@example.com"),
+//         sign_in_count: 1,
+//     };
+//     println!("User 1 username: {:?}", user1);
+// }   
+
+
+// struct User {
+//     active: bool,
+//     name: String, 
+//     email: String,
+// }
+
+
+// fn main(){
+//     let mut originalUser = User {
+//         active: true,
+//         name: String::from("Amaan"),
+//         email: String::from("amaan@gmail.com"),
+//     };
+//     println!("original user before naamikaran, {}", originalUser.name);
+//     change_name(&mut originalUser);
+//     println!("original user after naamikaran, {}", originalUser.name)
+// }
+
+
+
+// fn change_name(input : &mut User) {
+//     //changes the name to ayaan , every name btw
+//     input.name = String::from("Ayaan");
+// }
+
+
+
+
+#[derive(Clone)]
+struct User {
+    active : bool,
+    sign_in_count : u64,
+    username: String,
 }
 
 
-fn change_name(inputString: &mut String) {
-    inputString.push_str(" Khan");
+fn main(){
+    //define user 1 
+    let mut user1 = User {
+        active: true, 
+        sign_in_count : 1,
+        username: "Amaan".to_string(),
+    };
+    print_name(user1.clone());   //NOTE: IF YOU WRITE THE CODE W THIS LINE, GIVES ERROR BECAUSE OWNERSHIP GOES TO OUR ANOTHER FUNCTION. IF YOU WANT THE BELOW LINES TO PRINT , THEN YOU CANNOT TRANSFER OWNERSHIP, RATHER YOU JUST USE CLONE 
+    println!("user 1 ka status is {}", user1.active)
+
+}
+
+
+fn print_name(inputString : User) {
+    println!("user 1 ka username is {} ", inputString.username)
 }
