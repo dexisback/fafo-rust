@@ -465,27 +465,175 @@
 
 
 
-#[derive(Clone)]
-struct User {
-    active : bool,
-    sign_in_count : u64,
-    username: String,
-}
+// #[derive(Clone)]
+// struct User {
+//     active : bool,
+//     sign_in_count : u64,
+//     username: String,
+// }
 
 
-fn main(){
-    //define user 1 
-    let mut user1 = User {
-        active: true, 
-        sign_in_count : 1,
-        username: "Amaan".to_string(),
-    };
-    print_name(user1.clone());   //NOTE: IF YOU WRITE THE CODE W THIS LINE, GIVES ERROR BECAUSE OWNERSHIP GOES TO OUR ANOTHER FUNCTION. IF YOU WANT THE BELOW LINES TO PRINT , THEN YOU CANNOT TRANSFER OWNERSHIP, RATHER YOU JUST USE CLONE 
-    println!("user 1 ka status is {}", user1.active)
+// fn main(){
+//     //define user 1 
+//     let mut user1 = User {
+//         active: true, 
+//         sign_in_count : 1,
+//         username: "Amaan".to_string(),
+//     };
+//     print_name(user1.clone());   //NOTE: IF YOU WRITE THE CODE W THIS LINE, GIVES ERROR BECAUSE OWNERSHIP GOES TO OUR ANOTHER FUNCTION. IF YOU WANT THE BELOW LINES TO PRINT , THEN YOU CANNOT TRANSFER OWNERSHIP, RATHER YOU JUST USE CLONE 
+//     println!("user 1 ka status is {}", user1.active)
 
-}
+// }
 
 
-fn print_name(inputString : User) {
-    println!("user 1 ka username is {} ", inputString.username)
-}
+// fn print_name(inputString : User) {
+//     println!("user 1 ka username is {} ", inputString.username)
+// }
+
+
+
+// struct Rectangle {
+//     width : u32, 
+//     height: u32,
+// }
+
+// impl Rectangle {
+//     fn area(&self) -> u32 {
+//         self.width * self.height
+//     }
+// }
+
+// fn main(){
+//     //now you can use the area method
+//     let rect = Rectangle {
+//         width: 30,
+//         height: 50,
+//     };
+//     println!("the area of the rectangle is {}", rect.area());
+// }
+
+
+
+//enums : 
+//as i ride up and down marthin luther king drive (do ya thing)  standing tall looking down on the black bois these boys snitching all day i look around on the block im in a silve SL five pound on the block Aint you ever seen a young player clown in a drop (do ya thing) . Aint nothing to it "G"
+
+
+// enum Direction {
+//     Up, 
+//     Left, 
+//     Right, 
+//     Down,
+// }
+
+
+// fn main(){
+//     let my_direction = Direction::Up;
+//     let new_direction = my_direction;
+//     move_direction_around(new_direction);
+
+// }
+
+
+// fn move_direction_around(input : Direction) {
+//     //direction logic
+// }
+
+
+
+
+// //define an enum called shape -- has circle, square and rectangle
+// enum Shape {
+//     Circle(f64),
+//     Square(f64),
+//     Rectangle(f64, f64),
+// }
+
+
+
+// //function to calculte area based on the shape 
+// fn calculate_area(input : Shape) -> f64 {
+//     //calculate the area of the shape
+//     match input {
+//         Shape::Circle(radius) => {
+//             return std::f64::consts::PI * radius * radius;
+//         }
+//         Shape::Square(side) => {
+//             return side * side;
+//         }
+//         Shape::Rectangle(width, height) => {
+//             return width * height;
+//         }
+//     }
+//     0.0
+// }
+
+// //main function has all three shapes ke variables and we calculate area using the function
+// fn main(){
+//     let circle = Shape::Circle(10.0);
+//     let square = Shape::Square(5.0);
+//     let rectangle = Shape::Rectangle(10.0, 5.0);
+//     println!("the area of the circle is {}", calculate_area(circle));
+//     println!("the area of the square is {}", calculate_area(square));
+//     println!("the area of the rectangle is {}", calculate_area(rectangle));
+// }
+
+
+
+
+//pattern matching:
+//define an enum called shape 
+// enum Shape {
+//     Square(f64),
+//     Rectangle(f64,f64),
+//     Circle(f64),
+// }
+
+// fn calculate_area(shape: Shape) -> f64 {
+//     match shape {
+//         Shape::Circle(radius)  }
+// }
+
+
+
+// // Define an enum called Shape
+// enum Shape {
+//     Circle(f64),  // Variant with associated data (radius)
+//     Square(f64),  // Variant with associated data (side length)
+//     Rectangle(f64, f64),  // Variant with associated data (width, height)
+// }
+
+// // Function to calculate area based on the shape
+// fn calculate_area(shape: Shape) -> f64 {
+//     match shape {
+//         Shape::Circle(radius) => std::f64::consts::PI * radius * radius,
+//         Shape::Square(side_length) => side_length * side_length,
+//         Shape::Rectangle(width, height) => width * height,
+//     }
+// }
+
+// fn main() {
+//     // Create instances of different shapes
+//     let circle = Shape::Circle(5.0);
+//     let square = Shape::Square(4.0);
+//     let rectangle = Shape::Rectangle(3.0, 6.0);
+
+//     // Calculate and print the areas
+//     println!("Area of circle: {}", calculate_area(circle));
+//     println!("Area of square: {}", calculate_area(square));
+//     println!("Area of rectangle: {}", calculate_area(rectangle));
+// }
+
+// use std::fs;
+
+// use std::fs::File;
+
+// fn main() {
+// 	let greeting_file_result = fs::read_to_string("hello.txt");
+
+// 	let greeting_file = match greeting_file_result {
+// 		Ok(file) => file,
+// 		Err(e) => panic!("Error reading file: {}", e)
+// 	};
+
+// 	println!("File contents: {}", greeting_file);
+// }
