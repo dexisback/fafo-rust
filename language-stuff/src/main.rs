@@ -226,13 +226,44 @@
 
 
 
+// fn main(){
+//     let my_string = String::from("hellow, rust");
+//     takes_ownership(&mystring);
+//     println!("{}", my_string);
+// }
+
+
+// fn takes_ownership(input_string: &String) {
+//     println!("{}", input_string);
+// }
+
+
+
+// fn main(){
+// 	let string1 = String::from("hellow, amaan");
+// 	print_name(string1);
+	
+// 	println!("{}", string1)   //here string 1 will give compile error because ownership has transferred to the print_name function
+	
+	
+// }
+
+
+
+// fn print_name(input: String) {
+// 	println!("{}", input);
+// }
+
+
+//mutable borrwo
 fn main(){
-    let my_string = String::from("hellow, rust");
-    takes_ownership(&mystring);
-    println!("{}", my_string);
+    let mut name = String::from("Shahrukh");
+    change_name(&mut name);
+
+    println!("name is {}", name);
 }
 
 
-fn takes_ownership(input_string: &String) {
-    println!("{}", input_string);
+fn change_name(inputString: &mut String) {
+    inputString.push_str(" Khan");
 }
