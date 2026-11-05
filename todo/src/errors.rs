@@ -10,11 +10,19 @@ use serde::Serialize;
 pub enum ApiError {
     TodoNotFound,
     InvalidInput(String),
+    InternalServerError,
 }
 
 #[derive(Serialize)]
 struct ErrorResponse {
     error: String,
+}
+
+impl From<sqlx::Error> for ApiError {
+    fn from(error: sqlx::Error) -> Self {
+        tracing::error!("database error: {error}");
+        ApiError::InternalServerError
+    }
 }
 
 impl IntoResponse for ApiError {
@@ -33,8 +41,14 @@ impl IntoResponse for ApiError {
                 Json(ErrorResponse { error: message }),
             )
                 .into_response(),
+
+            ApiError::InternalServerError => (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                Json(ErrorResponse {
+                    error: "Internal server error".to_string(),
+                }),
+            )
+                .into_response(),
         }
     }
 }
-
-
