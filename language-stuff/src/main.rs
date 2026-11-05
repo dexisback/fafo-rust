@@ -637,3 +637,10 @@
 
 // 	println!("File contents: {}", greeting_file);
 // }
+
+
+fn main(){
+    println!("hellow world");
+}
+
+//whats left -- error handling, option enum, collections, traits, generics and lifetimes, multithreading, macros, async ops
