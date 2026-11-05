@@ -3,7 +3,7 @@ use uuid::Uuid;
 
 use crate::{
     errors::ApiError,
-    models::todo::{CreateTodo, Todo},
+    models::todo::{CreateTodo, Todo, UpdateTodo},
     state::AppState,
 };
 
@@ -17,7 +17,7 @@ pub async fn create_todo(
         id: new_id,
         title: payload.title,
         body: payload.body,
-        is_completed: payload.is_completed,
+        is_completed: false,
     };
 
     state.todos.write().await.insert(todo.id, todo.clone());
@@ -56,4 +56,32 @@ pub async fn delete_todo(
     } else {
         Err(ApiError::TodoNotFound)
     }
+}
+
+
+pub async fn update_todo(
+    State(state): State<AppState>,
+    Path(id): Path<Uuid>,
+    Json(payload): Json<UpdateTodo>,
+) -> Result<Json<Todo>, ApiError> {
+    if payload.title.is_none() && payload.body.is_none() && payload.is_completed.is_none() {
+        return Err(ApiError::InvalidInput("No fields to update".to_string()));
+    }
+
+    let mut todos = state.todos.write().await;
+    let todo = todos.get_mut(&id).ok_or(ApiError::TodoNotFound)?;
+
+    if let Some(title) = payload.title {
+        todo.title = title;
+    }
+
+    if let Some(body) = payload.body {
+        todo.body = body;
+    }
+
+    if let Some(is_completed) = payload.is_completed {
+        todo.is_completed = is_completed;
+    }
+
+    Ok(Json(todo.clone()))
 }

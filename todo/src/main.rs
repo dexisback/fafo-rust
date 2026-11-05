@@ -41,7 +41,7 @@ use axum::{
 
 use tracing_subscriber::EnvFilter; //controls which tracing events get emitted
 
-use handlers::todos::{create_todo, delete_todo, get_todo, list_todos};
+use handlers::todos::{create_todo, delete_todo, get_todo, list_todos, update_todo};
 use state::AppState;
 
 #[tokio::main]
@@ -53,7 +53,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let app = Router::new()
         .route("/health", get(health_check))
         .route("/todos", post(create_todo).get(list_todos))
-        .route("/todos/{id}", get(get_todo).delete(delete_todo))
+        .route("/todos/{id}", get(get_todo).patch(update_todo).delete(delete_todo))
         .with_state(AppState::new());
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000").await?;

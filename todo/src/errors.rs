@@ -9,6 +9,7 @@ use serde::Serialize;
 #[derive(Debug)]
 pub enum ApiError {
     TodoNotFound,
+    InvalidInput(String),
 }
 
 #[derive(Serialize)]
@@ -22,10 +23,18 @@ impl IntoResponse for ApiError {
             ApiError::TodoNotFound => (
                 StatusCode::NOT_FOUND,
                 Json(ErrorResponse {
-                    error: "todo nahi mila".to_string(),
+                    error: "TODO not found".to_string(),
                 }),
+            )
+                .into_response(),
+
+            ApiError::InvalidInput(message) => (
+                StatusCode::BAD_REQUEST,
+                Json(ErrorResponse { error: message }),
             )
                 .into_response(),
         }
     }
 }
+
+

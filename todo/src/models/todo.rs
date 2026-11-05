@@ -18,8 +18,18 @@ pub struct Todo {
 pub struct CreateTodo {
     pub title: String,
     pub body: String,
-    pub is_completed: bool,
+    // pub is_completed: bool,
 }
 
 //serialise and deserialise are seder deivated. they
 //they generate the implementations needed to convert these structs to and from JSON
+
+
+#[derive(Debug, Deserialize)]
+pub struct UpdateTodo {
+    pub title: Option<String>,
+    pub body: Option<String>,
+    pub is_completed: Option<bool>,
+}
+
+//why option? because update means some things might be updated some not 
