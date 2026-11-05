@@ -18,7 +18,6 @@ pub struct AppState {
 // }
 //PgPool already handles shared access to database connections internally. It's designed to be cheaply cloned and shared across handlers.
 
-
 //arc allows sharing ownership of the same state across multiple handlers
 //hashmap stores todos indexed by UUID
 //arc: allows multiple parts of the application to share ownership of the same state

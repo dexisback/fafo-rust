@@ -29,8 +29,8 @@
 //     "hie thereeeeee amaan only and amaan goat"
 // }
 
-mod repositories;
-mod config;  //new fordb
+mod config;
+mod repositories; //new fordb
 
 mod errors; //new
 mod handlers;
@@ -44,13 +44,10 @@ use axum::{
 
 use tracing_subscriber::EnvFilter; //controls which tracing events get emitted
 
-use handlers::todos::{create_todo, delete_todo, get_todo, list_todos, update_todo};
-use state::AppState;
 use config::Config;
+use handlers::todos::{create_todo, delete_todo, get_todo, list_todos, update_todo};
 use sqlx::postgres::PgPoolOptions;
-
-
-
+use state::AppState;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -58,22 +55,26 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .with_env_filter(EnvFilter::new("info")) //sets the minimum log level to info
         .init();
 
-        dotenvy::dotenv().ok();
-        
+    dotenvy::dotenv().ok();
+
     let config = Config::from_env()?;
-    let pool = PgPoolOptions::new().max_connections(5).connect(&config.database_url).await?;
+    let pool = PgPoolOptions::new()
+        .max_connections(5)
+        .connect(&config.database_url)
+        .await?;
     tracing::info!("connected to postges succesfullyuhh");
     sqlx::migrate!("./migrations").run(&pool).await?;
     tracing::info!("db migrations completeduhh");
 
     let state = AppState { db: pool };
 
-
-
     let app = Router::new()
         .route("/health", get(health_check))
         .route("/todos", post(create_todo).get(list_todos))
-        .route("/todos/{id}", get(get_todo).patch(update_todo).delete(delete_todo))
+        .route(
+            "/todos/{id}",
+            get(get_todo).patch(update_todo).delete(delete_todo),
+        )
         .with_state(state);
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000").await?;
