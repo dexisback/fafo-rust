@@ -12,6 +12,7 @@ pub struct AppState {
     pub todos: Arc<RwLock<HashMap<Uuid, Todo>>>,
 }
 
+//defining a method for the appstate struct
 impl AppState {
     pub fn new() -> Self {
         Self {
@@ -20,6 +21,7 @@ impl AppState {
     }
 }
 
+//arc allows sharing ownership of the same state across multiple handlers
 //hashmap stores todos indexed by UUID
 //arc: allows multiple parts of the application to share ownership of the same state
 //rwLock: allows concurrent readers, but writes nahi (similar to go)

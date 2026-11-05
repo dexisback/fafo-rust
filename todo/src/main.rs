@@ -29,6 +29,7 @@
 //     "hie thereeeeee amaan only and amaan goat"
 // }
 
+mod errors; //new
 mod handlers;
 mod models;
 mod state;
@@ -38,21 +39,21 @@ use axum::{
     routing::{get, post},
 };
 
-use tracing_subscriber::EnvFilter;
+use tracing_subscriber::EnvFilter; //controls which tracing events get emitted
 
-use handlers::todos::{create_todo, list_todos};
+use handlers::todos::{create_todo, delete_todo, get_todo, list_todos};
 use state::AppState;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tracing_subscriber::fmt()
-        .with_env_filter(EnvFilter::new("info"))
+        .with_env_filter(EnvFilter::new("info")) //sets the minimum log level to info
         .init();
 
     let app = Router::new()
         .route("/health", get(health_check))
-        .route("/todos", post(create_todo))
-        .route("/todos", get(list_todos))
+        .route("/todos", post(create_todo).get(list_todos))
+        .route("/todos/{id}", get(get_todo).delete(delete_todo))
         .with_state(AppState::new());
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000").await?;
